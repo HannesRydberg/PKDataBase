@@ -8,9 +8,12 @@ namespace PKDataBase.Model
 {
     class Garage
     {
+
         private String address;
         private int size;
         private List<Car> cars;
+
+        public Garage();
 
         public string Address
         {
