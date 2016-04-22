@@ -52,6 +52,16 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="hyrenbilDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>hyrenbilDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Booking.cs" />
+    <Compile Include="Model\Car.cs" />
+    <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Garage.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -63,6 +73,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="hyrenbilDataSet.xsc">
+      <DependentUpon>hyrenbilDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="hyrenbilDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>hyrenbilDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="hyrenbilDataSet.xss">
+      <DependentUpon>hyrenbilDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
