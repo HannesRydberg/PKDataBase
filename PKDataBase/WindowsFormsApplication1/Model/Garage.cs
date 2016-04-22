@@ -13,8 +13,6 @@ namespace PKDataBase.Model
         private int size;
         private List<Car> cars;
 
-        public Garage();
-
         public string Address
         {
             get

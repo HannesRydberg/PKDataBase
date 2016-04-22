@@ -11,19 +11,12 @@ namespace PKDataBase.DAL
 {
     class DAL
     {
-        private SqlConnection conn;
-        private SqlCommand cmd;
+        private SqlConnection conn = new SqlConnection("Data Source=HannesAsus; Initial Catalog=hyrenbil; User ID=sa; Password=sa");
         private SqlDataAdapter dataAdapter;
-        private DataTable dataTable;
 
-        public void ConnectDB()
-        {
-            conn = new SqlConnection(
-                "user id=sa;" + 
-                "password=sa;" + 
-                "server=localhost;" + 
-                "Database=hyrenbil;" + 
-                "Connect timeout=10;");
+
+        public SqlDataAdapter executeCommand(String query)
+        {    
             try
             {
                 conn.Open();
@@ -32,13 +25,20 @@ namespace PKDataBase.DAL
             {
                 Console.WriteLine(e.ToString());
             }
-           
-            cmd = new SqlCommand("SELECT * FROM Car");
+
+            
+                    
+               
+            SqlCommand cmd = new SqlCommand(query);
             cmd.Connection = conn;
             dataAdapter = new SqlDataAdapter(cmd);
-            dataTable = new DataTable();
-            dataAdapter.Fill(dataTable);
+            DataTable dataTable = new DataTable();
+            return dataAdapter;
+        }
 
+        public SqlDataAdapter getAllCars()
+        {
+            return executeCommand("SELECT * FROM Car");
         }
 
     }

@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace WindowsFormsApplication1 {
+namespace PKDataBaseView {
     
     
     /// <summary>
@@ -2600,7 +2600,7 @@ namespace WindowsFormsApplication1 {
         }
     }
 }
-namespace WindowsFormsApplication1.hyrenbilDataSetTableAdapters {
+namespace PKDataBaseView.hyrenbilDataSetTableAdapters {
     
     
     /// <summary>
@@ -2774,7 +2774,7 @@ SELECT bookingNbr, customerID, regNbr, startDate, endDate FROM Booking WHERE (bo
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::WindowsFormsApplication1.Properties.Settings.Default.hyrenbilConnectionString;
+            this._connection.ConnectionString = global::PKDataBaseView.Properties.Settings.Default.hyrenbilConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3170,7 +3170,7 @@ SELECT regNbr, model, color, address FROM Car WHERE (regNbr = @regNbr)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::WindowsFormsApplication1.Properties.Settings.Default.hyrenbilConnectionString;
+            this._connection.ConnectionString = global::PKDataBaseView.Properties.Settings.Default.hyrenbilConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3581,7 +3581,7 @@ SELECT customerID, phoneNbr, address, firstName, lastName FROM Customer WHERE (c
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::WindowsFormsApplication1.Properties.Settings.Default.hyrenbilConnectionString;
+            this._connection.ConnectionString = global::PKDataBaseView.Properties.Settings.Default.hyrenbilConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3993,7 +3993,7 @@ SELECT customerID, phoneNbr, address, firstName, lastName FROM Customer WHERE (c
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::WindowsFormsApplication1.Properties.Settings.Default.hyrenbilConnectionString;
+            this._connection.ConnectionString = global::PKDataBaseView.Properties.Settings.Default.hyrenbilConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4323,7 +4323,7 @@ SELECT name, brand, price, seats FROM Model WHERE (name = @name)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::WindowsFormsApplication1.Properties.Settings.Default.hyrenbilConnectionString;
+            this._connection.ConnectionString = global::PKDataBaseView.Properties.Settings.Default.hyrenbilConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
