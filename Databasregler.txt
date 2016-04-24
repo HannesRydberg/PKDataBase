@@ -1,0 +1,37 @@
+Vid borttagning/ändring av vissa tupler ska även borttagning/ändring av 
+relaterade tupler i andra tabeller ske enligt nedan:
+
+Borttagning av Car:
+	-Ta bort relateraterade tupler i Booking
+	-Kolla om det finns fler Car av samma Model, om inte ta bort
+		Model (om vi inte ska tillåta att Model som inte finns i 
+		någon Car existerar)
+
+Ändrad Model i Car:
+	-Kolla om det finns fler Car av samma Model, om inte ta bort
+		Model (om vi inte ska tillåta att Model som inte finns i 
+		någon Car existerar)
+
+Borttagning av Customer:
+	-Ta bort relaterade tupler i Booking
+
+Borttagning av Garage:
+	-Ta bort relaterade tupler i Car (eventuellt flytta alla Car
+		till någon form av standardgarage)
+
+Borttagning av Model:
+	-Ta bort relaterade tupler i Car (eventuellt förbjud borttagning
+		av Model? I så fall bör endast Models som är relaterade 
+		till minst en Car visas när man visar alla Models)
+
+Ändring av PK i Car:
+	- Ändra relaterade tupler i Booking
+
+Ändring av PK i Customer:
+	- Ändra relaterade tupler i Booking
+
+Ändring av PK i Garage:
+	- Ändra relaterade tupler i Car
+
+Ändring av PK i Model:
+	- Ändra relaterade tupler i Car

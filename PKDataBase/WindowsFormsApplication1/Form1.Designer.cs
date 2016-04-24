@@ -32,7 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.carsTab = new System.Windows.Forms.TabPage();
             this.carMsgLabel = new System.Windows.Forms.Label();
-            this.carTable = new System.Windows.Forms.DataGridView();
+            this.carDataGridView = new System.Windows.Forms.DataGridView();
             this.hyrenbilDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.hyrenbilDataSet = new PKDataBaseView.hyrenbilDataSet();
             this.carRemoveBtn = new System.Windows.Forms.Button();
@@ -86,7 +86,7 @@
             this.hyrenbilDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.carsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.carDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyrenbilDataSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyrenbilDataSet)).BeginInit();
             this.customersTab.SuspendLayout();
@@ -114,7 +114,7 @@
             // carsTab
             // 
             this.carsTab.Controls.Add(this.carMsgLabel);
-            this.carsTab.Controls.Add(this.carTable);
+            this.carsTab.Controls.Add(this.carDataGridView);
             this.carsTab.Controls.Add(this.carRemoveBtn);
             this.carsTab.Controls.Add(this.carAddBtn);
             this.carsTab.Controls.Add(this.carUpdateBtn);
@@ -148,19 +148,19 @@
             // 
             // carTable
             // 
-            this.carTable.AllowUserToOrderColumns = true;
-            this.carTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.carDataGridView.AllowUserToOrderColumns = true;
+            this.carDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carTable.AutoGenerateColumns = false;
-            this.carTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.carTable.DataSource = this.hyrenbilDataSetBindingSource1;
-            this.carTable.Location = new System.Drawing.Point(358, 46);
-            this.carTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.carTable.Name = "carTable";
-            this.carTable.RowTemplate.Height = 24;
-            this.carTable.Size = new System.Drawing.Size(455, 342);
-            this.carTable.TabIndex = 12;
+            this.carDataGridView.AutoGenerateColumns = false;
+            this.carDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.carDataGridView.DataSource = this.hyrenbilDataSetBindingSource1;
+            this.carDataGridView.Location = new System.Drawing.Point(358, 46);
+            this.carDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.carDataGridView.Name = "carTable";
+            this.carDataGridView.RowTemplate.Height = 24;
+            this.carDataGridView.Size = new System.Drawing.Size(455, 342);
+            this.carDataGridView.TabIndex = 12;
             // 
             // hyrenbilDataSetBindingSource1
             // 
@@ -733,7 +733,7 @@
             this.tabControl1.ResumeLayout(false);
             this.carsTab.ResumeLayout(false);
             this.carsTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.carDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyrenbilDataSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyrenbilDataSet)).EndInit();
             this.customersTab.ResumeLayout(false);
@@ -754,7 +754,7 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage carsTab;
-        private System.Windows.Forms.DataGridView carTable;
+        private System.Windows.Forms.DataGridView carDataGridView;
         private System.Windows.Forms.BindingSource hyrenbilDataSetBindingSource1;
         private hyrenbilDataSet hyrenbilDataSet;
         private System.Windows.Forms.Button carRemoveBtn;

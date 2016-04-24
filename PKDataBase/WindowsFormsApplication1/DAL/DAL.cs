@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using PKDataBase.Model;
 
 namespace PKDataBase.DAL
 {
     class DAL
     {
-        private SqlConnection conn = new SqlConnection("Data Source=HannesAsus; Initial Catalog=hyrenbil; User ID=sa; Password=sa");
+        private SqlConnection conn = new SqlConnection();
         private SqlDataAdapter dataAdapter;
 
 
@@ -36,9 +37,23 @@ namespace PKDataBase.DAL
             return dataAdapter;
         }
 
-        public SqlDataAdapter getAllCars()
+        public List<Car> getAllCars()
         {
-            return executeCommand("SELECT * FROM Car");
+            conn.ConnectionString = "Data Source=HannesAsus; Initial Catalog=hyrenbil; User ID=sa; Password=sa";
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Car", conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Car> cars = new List<Car>();
+            while (reader.Read())
+            {
+                Car c = new Car();
+                c.RegNbr = reader["regNbr"].ToString();
+                c.Color = reader["color"].ToString();
+                cars.Add(c);
+            }
+            conn.Close();
+            conn.Dispose();
+            return cars;
         }
 
     }
