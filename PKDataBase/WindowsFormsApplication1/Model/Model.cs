@@ -78,5 +78,14 @@ namespace PKDataBase.Model
                 cars = value;
             }
         }
+
+        public bool Equals(Model m)
+        {
+            if(m.name.Equals(this.name) && m.brand.Equals(this.brand) && m.price == this.price && m.seats == this.seats)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

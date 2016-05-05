@@ -41,9 +41,14 @@ namespace PKDataBase.BAL
             return dal.GetAllModels();
         }
 
-        public List<Car> GetSpecifiedCars(Car cIn)
+        public List<Car> GetSpecifiedCars(Car c)
         {
-            return dal.GetSpecifiedCars(cIn);
+            return dal.GetSpecifiedCars(c);
+        }
+
+        public List<Garage> GetSpecifiedGarages(Garage g)
+        {
+            return dal.GetSpecifiedGarages(g);
         }
 
         public List<Model.Model> GetSpecifiedModels(Model.Model m)
@@ -51,19 +56,79 @@ namespace PKDataBase.BAL
             return dal.GetSpecifiedModels(m);
         }
 
-        public void InsertCar(Car c)
+        public Booking InsertBooking(Booking b)
         {
-            dal.InsertCar(c);
+            return dal.InsertBooking(b);
         }
 
-        public void InsertGarage(Garage g)
+        public Car InsertCar(Car c)
         {
-            dal.InsertGarage(g);
+            return dal.InsertCar(c);
         }
 
-        public void InsertModel(Model.Model m)
+        public Customer InsertCustomer(Customer c)
         {
-            dal.InsertModel(m);
+            return dal.InsertCustomer(c);
+        }
+
+        public Garage InsertGarage(Garage g)
+        {
+           return  dal.InsertGarage(g);
+        }
+
+        public Model.Model InsertModel(Model.Model m)
+        {
+            return dal.InsertModel(m);
+        }
+
+        public void DeleteBooking(Booking b)
+        {
+            dal.DeleteBooking(b);
+        }
+
+        public void DeleteCar(Car c)
+        {
+            dal.DeleteCar(c);
+        }
+
+        public void DeleteCustomer(Customer c)
+        {
+            dal.DeleteCustomer(c);
+        }
+
+        public void DeleteGarage(Garage g)
+        {
+            dal.DeleteGarage(g);
+        }
+
+        public void DeleteModel(Model.Model m)
+        {
+            dal.DeleteModel(m);
+        }
+
+        public void UpdateBooking(Booking b)
+        {
+            dal.UpdateBooking(b);
+        }
+
+        public void UpdateCar(Car c)
+        {
+            dal.UpdateCar(c);
+        }
+
+        public void UpdateCustomer(Customer c)
+        {
+            dal.UpdateCustomer(c);
+        }
+
+        public void UpdateGarage(Garage g)
+        {
+            dal.UpdateGarage(g);
+        }
+
+        public void UpdateModel(Model.Model m)
+        {
+            dal.UpdateModel(m);
         }
     }
 }

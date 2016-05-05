@@ -13,13 +13,14 @@ namespace PKDataBase.DAL
     class DAL
     {
         private SqlConnection conn = new SqlConnection();
-        
+
 
         private SqlDataReader ExecuteCommand(SqlCommand cmd)
         {
             SqlDataReader reader = null;
             try
             {
+                conn.Close();
                 conn.ConnectionString = "Data Source=HannesAsus; Initial Catalog=hyrenbil; User ID=sa; Password=sa";
                 conn.Open();
                 cmd.Connection = conn;
@@ -42,8 +43,8 @@ namespace PKDataBase.DAL
             conn.Close();
             List<Booking> allBookings = GetAllBookings();
 
-            foreach(Car c in cars)
-                {
+            foreach (Car c in cars)
+            {
                 for (int i = 0; i < models.Count; i++)
                 {
                     if (models[i].Name.Equals(c.Model.Name))
@@ -73,7 +74,7 @@ namespace PKDataBase.DAL
                 }
                 c.Bookings = bookings;
             }
-            
+
             return cars;
         }
 
@@ -108,7 +109,7 @@ namespace PKDataBase.DAL
 
 
             return bookings;
-            
+
         }
 
         public List<Customer> GetAllCustomers()
@@ -158,7 +159,7 @@ namespace PKDataBase.DAL
 
             return CompleteCars(cars);
 
-            
+
 
 
         }
@@ -188,13 +189,13 @@ namespace PKDataBase.DAL
             SqlDataReader reader = ExecuteCommand(cmd);
             List<Model.Model> models = new List<Model.Model>();
 
-            while(reader.Read())
+            while (reader.Read())
             {
                 Model.Model m = new Model.Model();
                 m.Name = reader["name"].ToString();
                 m.Brand = reader["brand"].ToString();
-                m.Price = (int) reader["price"];
-                m.Seats = (int) reader["seats"];
+                m.Price = (int)reader["price"];
+                m.Seats = (int)reader["seats"];
                 models.Add(m);
             }
             conn.Close();
@@ -203,21 +204,71 @@ namespace PKDataBase.DAL
             return models;
         }
 
+        public List<Booking> GetSpecifiedBookings(Booking b)
+        {
+            if(b.Car == null)
+            {
+                b.Car = new Car();
+            }
+            if(b.Customer == null)
+            {
+                b.Customer = new Customer();
+            }
+            String cmdString = "SELECT * FROM Booking b WHERE b.bookingNbr LIKE '%" + NullCheck(b.BookingNbr) +
+                "%' AND b.customerID LIKE '%" + NullCheck(b.Customer.CustomerID) +
+                "%' AND b.regNbr LIKE '%" + NullCheck(b.Car.RegNbr) + "%'";
+
+            if (b.StartDate != null)
+            {
+                cmdString += ("%' AND b.startDate LIKE '%" + b.StartDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+            if(b.EndDate != null)
+            {
+                cmdString += ("%' AND b.endDate LIKE '%" + b.EndDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+
+            List<Booking> bookings = new List<Booking>();
+            SqlCommand cmd = new SqlCommand(cmdString);
+            SqlDataReader reader = ExecuteCommand(cmd);
+
+            while (reader.Read())
+            {
+                Booking tmpBooking = new Booking();
+                tmpBooking.BookingNbr = reader["bookingNbr"].ToString();
+                Car car = new Car();
+                car.RegNbr = reader["regNbr"].ToString();
+                tmpBooking.Car = GetSpecifiedCars(car)[0];
+                Customer customer = new Customer();
+                customer.CustomerID = reader["customerID"].ToString();
+                tmpBooking.Customer = GetSpecifiedCustomers(customer)[0];
+                tmpBooking.StartDate = (DateTime)reader["startDate"];
+                tmpBooking.EndDate = (DateTime)reader["endDate"];
+
+                bookings.Add(tmpBooking);
+            }
+            conn.Close();
+            conn.Dispose();
+
+            return bookings;
+        }
+
         public List<Car> GetSpecifiedCars(Car cIn)
         {
-            if(cIn.Model == null)
+            if (cIn.Model == null)
             {
                 cIn.Model = new Model.Model();
+                cIn.Model.Price = Int32.MaxValue;
+                cIn.Model.Seats = 0;
             }
-            
-            if(cIn.Garage == null)
+
+            if (cIn.Garage == null)
             {
                 cIn.Garage = new Garage();
             }
             String cmdString = "SELECT * FROM Car c " +
-                "WHERE c.regNbr LIKE '%"+ NullCheck(cIn.RegNbr) +"%' " +
-                    "AND c.model IN (SELECT name FROM Model WHERE name LIKE '%" + NullCheck(cIn.Model.Name) 
-                    + "%' AND brand LIKE '%" + NullCheck(cIn.Model.Brand) + "%' AND price <= " + NullCheck(cIn.Model.Price) + 
+                "WHERE c.regNbr LIKE '%" + NullCheck(cIn.RegNbr) + "%' " +
+                    "AND c.model IN (SELECT name FROM Model WHERE name LIKE '%" + NullCheck(cIn.Model.Name)
+                    + "%' AND brand LIKE '%" + NullCheck(cIn.Model.Brand) + "%' AND price <= " + NullCheck(cIn.Model.Price) +
                     " AND seats >= " + NullCheck(cIn.Model.Seats) + " ) " +
                     "AND c.color LIKE '%" + NullCheck(cIn.Color) + "%' " +
                     "AND c.address LIKE '%" + NullCheck(cIn.Garage.Address) + "%';";
@@ -225,7 +276,7 @@ namespace PKDataBase.DAL
             SqlDataReader reader = ExecuteCommand(cmd);
             List<Car> cars = new List<Car>();
 
-                while (reader.Read())
+            while (reader.Read())
             {
                 Car c = new Car();
                 c.RegNbr = reader["regNbr"].ToString();
@@ -241,9 +292,52 @@ namespace PKDataBase.DAL
             return CompleteCars(cars);
         }
 
+        public List<Customer> GetSpecifiedCustomers(Customer c)
+        {
+            String cmdString = "SELECT * FROM Customer WHERE customerID LIKE '%" + NullCheck(c.CustomerID) +
+                "%' AND phoneNbr LIKE '%" + NullCheck(c.PhoneNbr) + "%' AND address LIKE '%" + NullCheck(c.Address) +
+                "%' AND firstName LIKE '%" + NullCheck(c.FirstName) + "%' AND lastName LIKE '%" + NullCheck(c.LastName) + "%'";
+
+            SqlCommand cmd = new SqlCommand(cmdString);
+            SqlDataReader reader = ExecuteCommand(cmd);
+            List<Customer> customers = new List<Customer>();
+
+            while (reader.Read()) {
+                Customer tmpCustomer = new Customer();
+                tmpCustomer.CustomerID = reader["customerID"].ToString();
+                tmpCustomer.PhoneNbr = reader["phoneNbr"].ToString();
+                tmpCustomer.Address = reader["address"].ToString();
+                tmpCustomer.FirstName = reader["firstName"].ToString();
+                tmpCustomer.LastName = reader["lastName"].ToString();
+                customers.Add(tmpCustomer);
+            }
+            conn.Close();
+            conn.Dispose();
+
+            return customers;
+        }
+
+        public List<Garage> GetSpecifiedGarages(Garage g)
+        {
+            String cmdString = "SELECT * FROM Garage g WHERE address LIKE '%" + g.Address + "%'";
+            SqlCommand cmd = new SqlCommand(cmdString);
+            SqlDataReader reader = ExecuteCommand(cmd);
+
+            List<Garage> garages = new List<Garage>();
+
+            while (reader.Read())
+            {
+                Garage tmpGarage = new Garage();
+                tmpGarage.Address = reader["address"].ToString();
+                tmpGarage.Size = Int32.Parse(reader["size"].ToString());
+                garages.Add(tmpGarage);
+            }
+            return garages;
+        }
+
         public List<Model.Model> GetSpecifiedModels(Model.Model m)
         {
-            String cmdString = "SELECT * FROM Model m WHERE name LIKE '%"+ m.Name +"%' AND brand LIKE '%" + m.Brand + "%';";
+            String cmdString = "SELECT * FROM Model m WHERE name LIKE '%" + m.Name + "%' AND brand LIKE '%" + m.Brand + "%';";
             SqlCommand cmd = new SqlCommand(cmdString);
             SqlDataReader reader = ExecuteCommand(cmd);
 
@@ -265,39 +359,236 @@ namespace PKDataBase.DAL
             return models;
         }
 
-        public void InsertCar(Car c)
+        public Booking InsertBooking(Booking b)
         {
-            String cmdString = "INSERT INTO Car VALUES: ('" + c.RegNbr +"','" 
-                + c.Model.Name  +"','" + c.Color +"','" + c.Garage.Address + "')";
-            SqlCommand cmd = new SqlCommand(cmdString);
-            ExecuteCommand(cmd);
-            conn.Close();
-            conn.Dispose();
+            if(GetSpecifiedBookings(b).Count == 0)
+            {
+                if(GetSpecifiedCars(b.Car).Count ==1 && GetSpecifiedCustomers(b.Customer).Count == 1)
+                {
+                    String cmdString = "INSERT INTO Booking VALUES ('" + b.BookingNbr + "' , '" + b.Customer.CustomerID +
+                        "' , '" + b.Car.RegNbr + "' , '" + b.StartDate.Date + "' , '" + b.EndDate.Date + "')";
+                    SqlCommand cmd = new SqlCommand(cmdString);
+                    ExecuteCommand(cmd);
+                    conn.Close();
+                    conn.Dispose();
+                    return b;
+                }
+            }
+            return null;
         }
 
-        public void InsertGarage(Garage g)
+        public Car InsertCar(Car c)
         {
-            String cmdString = "INSERT INTO Garage VALUES: ('" + g.Address + "','"
+            conn.Close();
+            if (GetSpecifiedCars(c).Count == 0)
+            {
+                conn.Close();
+                Model.Model m = c.Model;
+                if (GetSpecifiedModels(m).Count == 0)
+                {
+                    conn.Close();
+                    InsertModel(m);
+                }
+                Garage g = c.Garage;
+                if(GetSpecifiedGarages(g).Count == 1)
+                {
+
+                    String cmdString = "INSERT INTO Car VALUES ('" + c.RegNbr + "','"
+                    + c.Model.Name + "','" + c.Color + "','" + c.Garage.Address + "')";
+                    SqlCommand cmd = new SqlCommand(cmdString);
+                    conn.Close();
+                    ExecuteCommand(cmd);
+                    conn.Close();
+                    conn.Dispose();
+                    return c;
+                }
+               
+            }
+            return null;
+        }
+
+        public Customer InsertCustomer(Customer c)
+        {
+            if(GetSpecifiedCustomers(c).Count == 0)
+            {
+                String cmdString = "INSERT INTO Customer VALUES ('" + c.CustomerID + "' , '" + c.PhoneNbr + "' , '" +
+                    c.Address + "' , '" + c.FirstName + "' , '" + c.LastName + "')";
+                SqlCommand cmd = new SqlCommand(cmdString);
+                ExecuteCommand(cmd);
+                conn.Close();
+                conn.Dispose();
+                return c;
+            }
+            return null;
+        }
+
+        public Garage InsertGarage(Garage g)
+        {
+            if (GetSpecifiedGarages(g).Count == 0)
+            {
+                String cmdString = "INSERT INTO Garage VALUES ('" + g.Address + "','" 
                 + g.Size + "')";
-            SqlCommand cmd = new SqlCommand(cmdString);
-            ExecuteCommand(cmd);
-            conn.Close();
-            conn.Dispose();
+                SqlCommand cmd = new SqlCommand(cmdString);
+                ExecuteCommand(cmd);
+                conn.Close();
+                conn.Dispose();
+                return g;
+            }
+            return null;
         }
 
-        public void InsertModel(Model.Model m)
+        public Model.Model InsertModel(Model.Model m)
         {
-            String cmdString = "INSERT INTO Model VALUES: ('" + m.Name + "','"
+            if (GetSpecifiedModels(m).Count == 0)
+            {
+                String cmdString = "INSERT INTO Model VALUES ('" + m.Name + "','"
                 + m.Brand + "','" + m.Price + "','" + m.Seats + "')";
+                SqlCommand cmd = new SqlCommand(cmdString);
+                ExecuteCommand(cmd);
+                conn.Close();
+                conn.Dispose();
+                return m;
+            }
+            return null;
+        }
+
+        public void DeleteBooking(Booking b)
+        {
+            String cmdString = "DELETE FROM Booking WHERE bookingNbr = '" + b.BookingNbr + "'";
             SqlCommand cmd = new SqlCommand(cmdString);
             ExecuteCommand(cmd);
             conn.Close();
             conn.Dispose();
         }
 
-        public String NullCheck(object o)
+        public void DeleteCar(Car c)
         {
-            if(o == null)
+            List<Booking> bookings = GetAllBookings();
+            foreach(Booking b in bookings)
+            {
+                if (b.Car.RegNbr.Equals(c.RegNbr))
+                {
+                    DeleteBooking(b);
+                }
+            }
+
+            String cmdString = "DELETE FROM Car WHERE regNbr = '" + c.RegNbr + "'";
+            SqlCommand cmd = new SqlCommand(cmdString);
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+
+            Model.Model m = c.Model;
+            Car tmpCar = new Car();
+            tmpCar.Model = m;
+            if(GetSpecifiedCars(tmpCar).Count == 0)
+            {
+                DeleteModel(m);
+            }
+        }
+
+        public void DeleteCustomer(Customer c)
+        {
+            Booking b = new Booking();
+            b.Customer = c;
+            List<Booking> bookings = GetSpecifiedBookings(b);
+            foreach(Booking tmpBooking in bookings)
+            {
+                if (tmpBooking.Customer.CustomerID.Equals(c.CustomerID))
+                {
+                    DeleteBooking(tmpBooking);
+                }
+            }
+
+            String cmdString = "DELETE FROM Customers WHERE customerID = '" + c.CustomerID + "'";
+            SqlCommand cmd = new SqlCommand(cmdString);
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+        }
+
+        public void DeleteGarage(Garage g)
+        {
+            Car c = new Car();
+            c.Garage = g;
+            SqlCommand cmd = new SqlCommand("DELETE FROM Car WHERE address = '" + g.Address + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+            String cmdString = "DELETE FROM Garage WHERE address = '" + g.Address + "'";
+            cmd = new SqlCommand(cmdString);
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+        }
+
+        public void DeleteModel(Model.Model m)
+        {
+            SqlCommand cmd = new SqlCommand("DELETE FROM Car WHERE model = '" + m.Name + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+
+            cmd.CommandText = "DELETE FROM Model WHERE name = '" + m.Name + "'";
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose(); 
+        }
+
+        public void UpdateBooking(Booking b)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Booking SET customerID='" + b.Customer.CustomerID +
+                "', regNbr='" + b.Car.RegNbr + "', startDate='" + b.StartDate.Date + "', endDate='" + b.EndDate.Date +
+                "' WHERE bookingNbr='" + b.BookingNbr + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+        }
+
+        public void UpdateCar(Car c)
+        {
+            Model.Model m = new Model.Model();
+            m.Name = c.Model.Name;
+            List<Model.Model> models = GetSpecifiedModels(m);
+            if(models.Count == 0)
+            {
+                InsertModel(c.Model);
+            }
+            else if (!models[0].Equals(c.Model))
+            {
+                UpdateModel(c.Model);
+            }
+            SqlCommand cmd = new SqlCommand("UPDATE Car SET model='" + c.Model.Name + "', color='" + c.Color +
+            "', address='" + c.Garage.Address + "' WHERE regNbr='" + c.RegNbr + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+        }
+
+        public void UpdateCustomer(Customer c)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Customer SET phoneNbr='" + c.PhoneNbr + "', address='" + c.Address +
+                "', firstName='" + c.FirstName + "', lastName='" + c.LastName + "' WHERE customerID='" + c.CustomerID + "'");
+        }
+
+        public void UpdateGarage(Garage g)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Garage SET size=" + g.Size + " WHERE address='" + g.Address + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+        }
+
+        public void UpdateModel(Model.Model m)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Model SET brand='" + m.Brand + "', price=" +
+                m.Price + ", seats=" + m.Seats + " WHERE name='" + m.Name + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
+        }
+
+        private String NullCheck(object o)
+        {
+            if (o == null)
             {
                 return "";
             }

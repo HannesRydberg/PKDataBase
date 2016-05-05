@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.carsTab = new System.Windows.Forms.TabPage();
+            this.carDeleteBtn = new System.Windows.Forms.Button();
+            this.carClearBtn = new System.Windows.Forms.Button();
             this.carGarageComboBox = new System.Windows.Forms.ComboBox();
             this.carColorComboBox = new System.Windows.Forms.ComboBox();
             this.carBrandComboBox = new System.Windows.Forms.ComboBox();
@@ -46,7 +48,6 @@
             this.carDataGridView = new System.Windows.Forms.DataGridView();
             this.hyrenbilDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.hyrenbilDataSet = new PKDataBaseView.hyrenbilDataSet();
-            this.carRemoveBtn = new System.Windows.Forms.Button();
             this.carAddBtn = new System.Windows.Forms.Button();
             this.carUpdateBtn = new System.Windows.Forms.Button();
             this.carSearchBtn = new System.Windows.Forms.Button();
@@ -115,11 +116,14 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(986, 453);
+            this.tabControl1.Size = new System.Drawing.Size(1046, 453);
             this.tabControl1.TabIndex = 0;
             // 
             // carsTab
             // 
+            this.carsTab.Controls.Add(this.carDataGridView);
+            this.carsTab.Controls.Add(this.carDeleteBtn);
+            this.carsTab.Controls.Add(this.carClearBtn);
             this.carsTab.Controls.Add(this.carGarageComboBox);
             this.carsTab.Controls.Add(this.carColorComboBox);
             this.carsTab.Controls.Add(this.carBrandComboBox);
@@ -132,8 +136,6 @@
             this.carsTab.Controls.Add(this.carBrandLbl);
             this.carsTab.Controls.Add(this.carRegNbrLbl);
             this.carsTab.Controls.Add(this.carMsgLabel);
-            this.carsTab.Controls.Add(this.carDataGridView);
-            this.carsTab.Controls.Add(this.carRemoveBtn);
             this.carsTab.Controls.Add(this.carAddBtn);
             this.carsTab.Controls.Add(this.carUpdateBtn);
             this.carsTab.Controls.Add(this.carSearchBtn);
@@ -145,10 +147,34 @@
             this.carsTab.Margin = new System.Windows.Forms.Padding(2);
             this.carsTab.Name = "carsTab";
             this.carsTab.Padding = new System.Windows.Forms.Padding(2);
-            this.carsTab.Size = new System.Drawing.Size(978, 427);
+            this.carsTab.Size = new System.Drawing.Size(1038, 427);
             this.carsTab.TabIndex = 0;
             this.carsTab.Text = "Cars";
             this.carsTab.UseVisualStyleBackColor = true;
+            // 
+            // carDeleteBtn
+            // 
+            this.carDeleteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.carDeleteBtn.Location = new System.Drawing.Point(248, 312);
+            this.carDeleteBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.carDeleteBtn.Name = "carDeleteBtn";
+            this.carDeleteBtn.Size = new System.Drawing.Size(75, 28);
+            this.carDeleteBtn.TabIndex = 26;
+            this.carDeleteBtn.Text = "Delete";
+            this.carDeleteBtn.UseVisualStyleBackColor = true;
+            this.carDeleteBtn.Click += new System.EventHandler(this.carDeleteBtn_Click);
+            // 
+            // carClearBtn
+            // 
+            this.carClearBtn.Location = new System.Drawing.Point(248, 279);
+            this.carClearBtn.Name = "carClearBtn";
+            this.carClearBtn.Size = new System.Drawing.Size(75, 28);
+            this.carClearBtn.TabIndex = 25;
+            this.carClearBtn.Text = "Clear Fields";
+            this.carClearBtn.UseVisualStyleBackColor = true;
+            this.carClearBtn.Click += new System.EventHandler(this.carClearBtn_Click);
             // 
             // carGarageComboBox
             // 
@@ -250,7 +276,7 @@
             // carMsgLabel
             // 
             this.carMsgLabel.AutoSize = true;
-            this.carMsgLabel.Location = new System.Drawing.Point(81, 340);
+            this.carMsgLabel.Location = new System.Drawing.Point(8, 354);
             this.carMsgLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.carMsgLabel.Name = "carMsgLabel";
             this.carMsgLabel.Size = new System.Drawing.Size(0, 13);
@@ -265,11 +291,11 @@
             this.carDataGridView.AutoGenerateColumns = false;
             this.carDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.carDataGridView.DataSource = this.hyrenbilDataSetBindingSource1;
-            this.carDataGridView.Location = new System.Drawing.Point(358, 46);
+            this.carDataGridView.Location = new System.Drawing.Point(363, 47);
             this.carDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.carDataGridView.Name = "carDataGridView";
             this.carDataGridView.RowTemplate.Height = 24;
-            this.carDataGridView.Size = new System.Drawing.Size(602, 342);
+            this.carDataGridView.Size = new System.Drawing.Size(662, 342);
             this.carDataGridView.TabIndex = 12;
             // 
             // hyrenbilDataSetBindingSource1
@@ -282,28 +308,15 @@
             this.hyrenbilDataSet.DataSetName = "hyrenbilDataSet";
             this.hyrenbilDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // carRemoveBtn
-            // 
-            this.carRemoveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.carRemoveBtn.Location = new System.Drawing.Point(256, 288);
-            this.carRemoveBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.carRemoveBtn.Name = "carRemoveBtn";
-            this.carRemoveBtn.Size = new System.Drawing.Size(67, 28);
-            this.carRemoveBtn.TabIndex = 11;
-            this.carRemoveBtn.Text = "Remove";
-            this.carRemoveBtn.UseVisualStyleBackColor = true;
-            // 
             // carAddBtn
             // 
             this.carAddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carAddBtn.Location = new System.Drawing.Point(182, 288);
+            this.carAddBtn.Location = new System.Drawing.Point(169, 312);
             this.carAddBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carAddBtn.Name = "carAddBtn";
-            this.carAddBtn.Size = new System.Drawing.Size(67, 28);
+            this.carAddBtn.Size = new System.Drawing.Size(75, 28);
             this.carAddBtn.TabIndex = 10;
             this.carAddBtn.Text = "Add";
             this.carAddBtn.UseVisualStyleBackColor = true;
@@ -314,10 +327,10 @@
             this.carUpdateBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carUpdateBtn.Location = new System.Drawing.Point(112, 288);
+            this.carUpdateBtn.Location = new System.Drawing.Point(90, 312);
             this.carUpdateBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carUpdateBtn.Name = "carUpdateBtn";
-            this.carUpdateBtn.Size = new System.Drawing.Size(67, 28);
+            this.carUpdateBtn.Size = new System.Drawing.Size(75, 28);
             this.carUpdateBtn.TabIndex = 9;
             this.carUpdateBtn.Text = "Update";
             this.carUpdateBtn.UseVisualStyleBackColor = true;
@@ -328,10 +341,10 @@
             this.carSearchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carSearchBtn.Location = new System.Drawing.Point(38, 288);
+            this.carSearchBtn.Location = new System.Drawing.Point(11, 312);
             this.carSearchBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carSearchBtn.Name = "carSearchBtn";
-            this.carSearchBtn.Size = new System.Drawing.Size(67, 28);
+            this.carSearchBtn.Size = new System.Drawing.Size(75, 28);
             this.carSearchBtn.TabIndex = 8;
             this.carSearchBtn.Text = "Search";
             this.carSearchBtn.UseVisualStyleBackColor = true;
@@ -785,7 +798,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 477);
+            this.ClientSize = new System.Drawing.Size(1060, 477);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -817,7 +830,6 @@
         private System.Windows.Forms.DataGridView carDataGridView;
         private System.Windows.Forms.BindingSource hyrenbilDataSetBindingSource1;
         private hyrenbilDataSet hyrenbilDataSet;
-        private System.Windows.Forms.Button carRemoveBtn;
         private System.Windows.Forms.Button carAddBtn;
         private System.Windows.Forms.Button carUpdateBtn;
         private System.Windows.Forms.Button carSearchBtn;
@@ -874,6 +886,8 @@
         private System.Windows.Forms.ComboBox carColorComboBox;
         private System.Windows.Forms.ComboBox carBrandComboBox;
         private System.Windows.Forms.ComboBox carGarageComboBox;
+        private System.Windows.Forms.Button carClearBtn;
+        private System.Windows.Forms.Button carDeleteBtn;
     }
 }
 
