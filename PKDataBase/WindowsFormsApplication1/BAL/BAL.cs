@@ -41,9 +41,19 @@ namespace PKDataBase.BAL
             return dal.GetAllModels();
         }
 
+        public List<Booking> GetSpecifiedBookings(Booking b)
+        {
+            return dal.GetSpecifiedBookings(b);
+        }
+
         public List<Car> GetSpecifiedCars(Car c)
         {
             return dal.GetSpecifiedCars(c);
+        }
+
+        public List<Customer> GetSpecifiedCustomers(Customer c)
+        {
+            return dal.GetSpecifiedCustomers(c);
         }
 
         public List<Garage> GetSpecifiedGarages(Garage g)

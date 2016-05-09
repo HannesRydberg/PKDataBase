@@ -216,16 +216,18 @@ namespace PKDataBase.DAL
             }
             String cmdString = "SELECT * FROM Booking b WHERE b.bookingNbr LIKE '%" + NullCheck(b.BookingNbr) +
                 "%' AND b.customerID LIKE '%" + NullCheck(b.Customer.CustomerID) +
-                "%' AND b.regNbr LIKE '%" + NullCheck(b.Car.RegNbr) + "%'";
+                "%' AND b.regNbr LIKE '%" + NullCheck(b.Car.RegNbr);
 
-            if (b.StartDate != null)
+            if (b.StartDate != new DateTime())
             {
-                cmdString += ("%' AND b.startDate LIKE '%" + b.StartDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmdString += ("%' AND b.startDate LIKE '%" + b.StartDate.ToString("yyyy-MM-dd"));
             }
-            if(b.EndDate != null)
+            if(b.EndDate != new DateTime())
             {
-                cmdString += ("%' AND b.endDate LIKE '%" + b.EndDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmdString += ("%' AND b.endDate LIKE '%" + b.EndDate.ToString("yyyy-MM-dd"));
             }
+
+            cmdString += "%'";
 
             List<Booking> bookings = new List<Booking>();
             SqlCommand cmd = new SqlCommand(cmdString);
@@ -237,10 +239,10 @@ namespace PKDataBase.DAL
                 tmpBooking.BookingNbr = reader["bookingNbr"].ToString();
                 Car car = new Car();
                 car.RegNbr = reader["regNbr"].ToString();
-                tmpBooking.Car = GetSpecifiedCars(car)[0];
+                tmpBooking.Car = car;
                 Customer customer = new Customer();
                 customer.CustomerID = reader["customerID"].ToString();
-                tmpBooking.Customer = GetSpecifiedCustomers(customer)[0];
+                tmpBooking.Customer = customer;
                 tmpBooking.StartDate = (DateTime)reader["startDate"];
                 tmpBooking.EndDate = (DateTime)reader["endDate"];
 
@@ -500,7 +502,7 @@ namespace PKDataBase.DAL
                 }
             }
 
-            String cmdString = "DELETE FROM Customers WHERE customerID = '" + c.CustomerID + "'";
+            String cmdString = "DELETE FROM Customer WHERE customerID = '" + c.CustomerID + "'";
             SqlCommand cmd = new SqlCommand(cmdString);
             ExecuteCommand(cmd);
             conn.Close();
@@ -567,6 +569,9 @@ namespace PKDataBase.DAL
         {
             SqlCommand cmd = new SqlCommand("UPDATE Customer SET phoneNbr='" + c.PhoneNbr + "', address='" + c.Address +
                 "', firstName='" + c.FirstName + "', lastName='" + c.LastName + "' WHERE customerID='" + c.CustomerID + "'");
+            ExecuteCommand(cmd);
+            conn.Close();
+            conn.Dispose();
         }
 
         public void UpdateGarage(Garage g)
