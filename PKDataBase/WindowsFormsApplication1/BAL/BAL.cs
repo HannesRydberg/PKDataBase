@@ -68,6 +68,18 @@ namespace PKDataBase.BAL
 
         public Booking InsertBooking(Booking b)
         {
+            Booking search = new Booking();
+            search.Car = b.Car;
+
+            List<Booking> allBookings = dal.GetSpecifiedBookings(search);
+            foreach (Booking tmp in allBookings)
+            {
+                if((b.StartDate.Date >= tmp.StartDate.Date && b.StartDate.Date <= tmp.EndDate.Date) || 
+                    (b.EndDate.Date >= tmp.StartDate.Date && b.EndDate.Date <= tmp.EndDate.Date) ||
+                    (b.StartDate.Date <= tmp.StartDate.Date && b.EndDate.Date >= tmp.EndDate.Date)){
+                    return null;
+                }
+            }
             return dal.InsertBooking(b);
         }
 
@@ -116,9 +128,22 @@ namespace PKDataBase.BAL
             dal.DeleteModel(m);
         }
 
-        public void UpdateBooking(Booking b)
+        public Booking UpdateBooking(Booking b)
         {
-            dal.UpdateBooking(b);
+            Booking search = new Booking();
+            search.Car = b.Car;
+
+            List<Booking> allBookings = dal.GetSpecifiedBookings(search);
+            foreach (Booking tmp in allBookings)
+            {
+                if ((b.StartDate.Date >= tmp.StartDate.Date && b.StartDate.Date <= tmp.EndDate.Date) ||
+                    (b.EndDate.Date >= tmp.StartDate.Date && b.EndDate.Date <= tmp.EndDate.Date) ||
+                    (b.StartDate.Date <= tmp.StartDate.Date && b.EndDate.Date >= tmp.EndDate.Date))
+                {
+                    return null;
+                }
+            }
+            return dal.UpdateBooking(b);
         }
 
         public void UpdateCar(Car c)
@@ -139,6 +164,16 @@ namespace PKDataBase.BAL
         public void UpdateModel(Model.Model m)
         {
             dal.UpdateModel(m);
+        }
+
+        public String NextAvalibleBookingNbr()
+        {
+            return dal.NextAvalibleBookingNbr();
+        }
+
+        public String NextAvalibleCustomerID()
+        {
+            return dal.NextAvalibleCustomerID();
         }
     }
 }

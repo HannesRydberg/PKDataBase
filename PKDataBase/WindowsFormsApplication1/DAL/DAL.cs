@@ -218,11 +218,13 @@ namespace PKDataBase.DAL
                 "%' AND b.customerID LIKE '%" + NullCheck(b.Customer.CustomerID) +
                 "%' AND b.regNbr LIKE '%" + NullCheck(b.Car.RegNbr);
 
-            if (b.StartDate != new DateTime())
+            DateTime tmp = new DateTime();
+
+            if (b.StartDate.Date != tmp.Date)
             {
                 cmdString += ("%' AND b.startDate LIKE '%" + b.StartDate.ToString("yyyy-MM-dd"));
             }
-            if(b.EndDate != new DateTime())
+            if(b.EndDate != tmp.Date)
             {
                 cmdString += ("%' AND b.endDate LIKE '%" + b.EndDate.ToString("yyyy-MM-dd"));
             }
@@ -535,7 +537,7 @@ namespace PKDataBase.DAL
             conn.Dispose(); 
         }
 
-        public void UpdateBooking(Booking b)
+        public Booking UpdateBooking(Booking b)
         {
             SqlCommand cmd = new SqlCommand("UPDATE Booking SET customerID='" + b.Customer.CustomerID +
                 "', regNbr='" + b.Car.RegNbr + "', startDate='" + b.StartDate.Date + "', endDate='" + b.EndDate.Date +
@@ -543,6 +545,7 @@ namespace PKDataBase.DAL
             ExecuteCommand(cmd);
             conn.Close();
             conn.Dispose();
+            return b;
         }
 
         public void UpdateCar(Car c)
@@ -591,6 +594,34 @@ namespace PKDataBase.DAL
             conn.Dispose();
         }
 
+        public String NextAvalibleBookingNbr()
+        {
+            int i;
+            List<Booking> bookings = GetAllBookings();
+            for(i = 0; i < bookings.Count; i++)
+            {
+                if (Int32.Parse(bookings[i].BookingNbr) != i + 1)
+                {
+                    return (i + 1).ToString();
+                }
+            }
+            return (i + 1).ToString();
+        }
+
+        public String NextAvalibleCustomerID()
+        {
+            int i;
+            List<Customer> customers = GetAllCustomers();
+            for (i = 0; i < customers.Count; i++)
+            {
+                if (Int32.Parse(customers[i].CustomerID) != i + 1)
+                {
+                    return (i + 1).ToString();
+                }
+            }
+            return (i + 1).ToString();
+        }
+
         private String NullCheck(object o)
         {
             if (o == null)
@@ -599,5 +630,6 @@ namespace PKDataBase.DAL
             }
             return o.ToString();
         }
+
     }
 }

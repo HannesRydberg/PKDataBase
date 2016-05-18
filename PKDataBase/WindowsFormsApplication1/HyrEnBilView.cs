@@ -28,22 +28,26 @@ namespace PKDataBaseView
             InitializeComponent();
             carDataGridView.AutoGenerateColumns = true;
             LoadAllCars();
-            carDataGridView.AutoResizeColumns();
+            carDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             carDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            carDataGridView.SortCompare += customSortCompare;
             FillCarComboBoxes();
 
             customerDataGridView.AutoGenerateColumns = true;
             LoadAllCustomers();
-            customerDataGridView.AutoResizeColumns();
+            customerDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            customerDataGridView.SortCompare += customSortCompare;
             customerMsgLabel.Text = "";
 
             bookingDataGridView.AutoGenerateColumns = true;
             LoadAllBookings();
-            bookingDataGridView.AutoResizeColumns();
+            bookingDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            bookingDataGridView.SortCompare += customSortCompare;
             bookingMsgLabel.Text = "";
 
             garageDataGridView.AutoGenerateColumns = true;
-            garageDataGridView.AutoResizeColumns();
+            garageDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            bookingDataGridView.SortCompare += customSortCompare;
             LoadAllGarages();
             garageMsgLabel.Text = "";
         }
@@ -384,20 +388,28 @@ namespace PKDataBaseView
             }
             if (carModelComboBox.Text.Length == 0){
                 result.Add("Model: The model field can not be empty, please type/select a value.");
+            } else if (carModelComboBox.Text.Length > 50) {
+                result.Add("Model: The model field may contain maximum 50 characters.");
             }
             if (carBrandComboBox.Text.Length == 0){
                 result.Add("Brand: The brand field can not be empty, please type/select a value.");
+            } else if(carBrandComboBox.Text.Length > 50)
+            {
+                result.Add("Brand: The brand field may contain maximum 50 characters.");
             }
             if (carColorComboBox.Text.Length == 0)
             {
                 result.Add("Color: The color field can not be empty, please type/select a value.");
+            } else if(carColorComboBox.Text.Length > 50)
+            {
+                result.Add("Color: The color field may contain maximum 50 characters.");
             }
             if(!Int32.TryParse(carPriceField.Text, out i))
             {
-                result.Add("Price: The value of the Price field must be a number.");
+                result.Add("Price: The value of the Price field must be a valid 32 bit integer.");
             }
             if (!Int32.TryParse(carSeatsField.Text, out i)){
-                result.Add("Seats: The value of the Seats field must be a number.");
+                result.Add("Seats: The value of the Seats field must be a valid 32 bit integer.");
             }
             if(carGarageComboBox.Text.Length == 0)
             {
@@ -463,8 +475,8 @@ namespace PKDataBaseView
         }
 
         //End Car Methods
-        
-            //Customer Methods
+
+        //Customer Methods
 
         private void LoadAllCustomers()
         {
@@ -602,6 +614,11 @@ namespace PKDataBaseView
             ClearCustomerFields();
         }
 
+        private void customerNextIDBtn_Click(object sender, EventArgs e)
+        {
+            customerIDField.Text = bal.NextAvalibleCustomerID();
+        }
+
         private void CustomerSearch(String custID)
         {
             Customer cust = new Customer();
@@ -642,7 +659,7 @@ namespace PKDataBaseView
 
             if (customers.Count == 0)
             {
-                carMsgLabel.Text = "No customers in the database matches the search criteria.";
+                customerMsgLabel.Text = "No customers in the database matches the search criteria.";
             }
             if (customers.Count == 1)
             {
@@ -657,31 +674,47 @@ namespace PKDataBaseView
         private List<String> CustomerFieldCheck()
         {
             List<String> errorMessages = new List<String>();
-            int i;
-
             if (customerIDField.Text.Length == 0)
             {
                 errorMessages.Add("Customer ID: The Customer ID field can not be empty, please enter a value.");
+            } else if(customerIDField.Text.Length > 50)
+            {
+                errorMessages.Add("Customer ID: The Customer ID field may contain maximum 50 characters.");
+            } else if (!CheckIfOnlyNumbers(customerIDField.Text))
+            {
+                errorMessages.Add("Customer ID: The Customer ID must contain only digits. No spaces, dashes or other characters.");
             }
             if (customerFirstNameField.Text.Length == 0)
             {
                 errorMessages.Add("First Name: The First Name field can not be empty, please enter a value.");
+            } else if(customerFirstNameField.Text.Length > 50)
+            {
+                errorMessages.Add("First Name: The First Name field may contain maximum 50 characters.");
             }
             if (customerLastNameField.Text.Length == 0)
             {
                 errorMessages.Add("Last Name: The Last Name field can not be empty, please enter a value.");
+            } else if (customerLastNameField.Text.Length > 50)
+            {
+                errorMessages.Add("Last Name: The Last Name field may contain maximum 50 characters.");
             }
             if (customerPhoneNbrField.Text.Length == 0)
             {
                 errorMessages.Add("Phone Number: The Phone Number field can not be empty, please enter a value.");
+            }else if(customerPhoneNbrField.Text.Length > 50)
+            {
+                errorMessages.Add("Phone Number: The Phone Number field may contain maximum 50 characters.");
             }
             else if (!CheckIfOnlyNumbers(customerPhoneNbrField.Text))
             {
-                errorMessages.Add("Phone Number: The Phone number must contain only digits, no spaces, dashes or other characters.");
+                errorMessages.Add("Phone Number: The Phone number must contain only digits. No spaces, dashes or other characters.");
             }
             if (customerAddressField.Text.Length == 0)
             {
                 errorMessages.Add("Address: The Address field can not be empty, please enter a value.");
+            } else if (customerAddressField.Text.Length > 50)
+            {
+                errorMessages.Add("Address: The Address field may contain maximum 50 characters.");
             }
             return errorMessages;
         }
@@ -701,7 +734,6 @@ namespace PKDataBaseView
             customerFirstNameField.Text = "";
             customerLastNameField.Text = "";
         }
-
 
         //End Customer Methods
 
@@ -762,10 +794,10 @@ namespace PKDataBaseView
                     b.Customer = customer;
                     b.StartDate = startDateTimePicker.Value;
                     b.EndDate = endDateTimePicker.Value;
-
+                    
                     bal.UpdateBooking(b);
                     bookingMsgLabel.Text = "Booking with Booking Number " + b.BookingNbr + " was updated.";
-                    BookingSearch(b.BookingNbr);
+                    BookingSearch(b.BookingNbr); 
                 }
             }
             else
@@ -789,7 +821,8 @@ namespace PKDataBaseView
             {
                 Booking b = new Booking();
                 b.BookingNbr = bookingNbrField.Text;
-                if(bal.GetSpecifiedBookings(b).Count < 0)
+
+                if (bal.GetSpecifiedBookings(b).Count > 0)
                 {
                     bookingMsgLabel.Text = "There already exists a booking with Booking Number " + b.BookingNbr +
                         "\nPlease choose another Booking Number.";
@@ -805,8 +838,26 @@ namespace PKDataBaseView
                     b.StartDate = startDateTimePicker.Value;
                     b.EndDate = endDateTimePicker.Value;
 
-                    bal.InsertBooking(b);
-                    bookingMsgLabel.Text = "Booking with Booking Number " + b.BookingNbr + " was added.";
+                    if (bal.GetSpecifiedCars(car).Count == 0)
+                    {
+                        bookingMsgLabel.Text = "No car with Reg Nbr. " + car.RegNbr + " exists." +
+                            "\nPlease choose another car";
+                    } else if (bal.GetSpecifiedCustomers(customer).Count == 0)
+                    {
+                        bookingMsgLabel.Text = "No customer with ID " + customer.CustomerID + "exists." +
+                            "\nPlease choose another customer";
+                    }
+                    else if(bal.InsertBooking(b) == null)
+                    {
+                        bookingMsgLabel.Text = "The car " + b.Car.RegNbr + " is already booked during that time." +
+                            "\nPlease select another date or another car.";
+                    }
+                    else
+                    {
+                        bookingMsgLabel.Text = "Booking with Booking Number " + b.BookingNbr + " was added.";
+                        LoadAllBookings();
+                    }
+                    
                 }
             } else
             {
@@ -849,6 +900,11 @@ namespace PKDataBaseView
         private void bookingClearBtn_Click(object sender, EventArgs e)
         {
             ClearBookingFields();
+        }
+
+        private void bookingNextNbrBtn_Click(object sender, EventArgs e)
+        {
+            bookingNbrField.Text = bal.NextAvalibleBookingNbr();
         }
 
         private void BookingSearch(String bookingNbr)
@@ -903,17 +959,28 @@ namespace PKDataBaseView
             if(bookingNbrField.Text.Length == 0)
             {
                 errorMessages.Add("Booking Number: The Booking Number field cannot be empty, please enter a value.");
-            } else if (!CheckIfOnlyNumbers(bookingNbrField.Text))
+            }
+            else if (bookingNbrField.Text.Length > 50)
+            {
+                errorMessages.Add("Booking Number: The Booking Number field may contain maximum 50 characters.");
+            }
+            else if (!CheckIfOnlyNumbers(bookingNbrField.Text))
             {
                 errorMessages.Add("Booking Number: The Booking Number may only consist of digits (no spaces or dashes).");
             }
+
             if(bookingCustomerIDField.Text.Length == 0)
             {
                 errorMessages.Add("Customer ID: The Customer ID field cannot be empty, please enter a value.");
             }
+            else if (bookingCustomerIDField.Text.Length > 50)
+            {
+                errorMessages.Add("Customer ID: The Customer ID field may contain maximum 50 characters.");
+            }
             else if (!CheckIfOnlyNumbers(bookingCustomerIDField.Text)){
                 errorMessages.Add("Customer ID: The Customer ID may only consist of digits (no spaces or dashes).");
             }
+
             if(bookingRegNbrField.Text.Length == 0)
             {
                 errorMessages.Add("Reg. Number: The Reg. Number field cannot be empty, please enter a value.");
@@ -964,20 +1031,16 @@ namespace PKDataBaseView
 
         private void garageUpdateBtn_Click(object sender, EventArgs e)
         {
-            int size;
-            garageMsgLabel.Text = "";
-            if (!Int32.TryParse(garageSizeField.Text, out size))
+            List<String> errorMessages = GarageFieldCheck();
+            if(errorMessages.Count == 0)
             {
-                MessageBox.Show("The size value must be an integer.");
-            }
-            else
-            {
-                Garage g = new Garage();
-                g.Address = bookingNbrField.Text;
+                garageMsgLabel.Text = "";
 
+                Garage g = new Garage();
+                g.Address = garageAddressField.Text;
                 if (bal.GetSpecifiedGarages(g).Count == 0)
                 {
-                    bookingMsgLabel.Text = "No garages with Address " + g.Address + " exists." +
+                    garageMsgLabel.Text = "No garages with Address " + g.Address + " exists." +
                         "Cannot update garage.";
                 }
                 else
@@ -985,21 +1048,84 @@ namespace PKDataBaseView
                     g.Size = Int32.Parse(garageSizeField.Text);
 
                     bal.UpdateGarage(g);
-                    bookingMsgLabel.Text = "Garage with address " + g.Address + " was updated.";
-                    GarageSearch(g.Address);
+                    garageMsgLabel.Text = "Garage with address " + g.Address + " was updated.";
+                    GarageSearch(g.Address); 
                 }
-            }       
+
+            }
+            else
+            {
+                String errorMessage = "Could not update garage. The following values were invalid: ";
+
+                foreach (String s in errorMessages)
+                {
+                    errorMessage += "\n" + s;
+                }
+
+                MessageBox.Show(errorMessage);
+            }
+
         }
         
-
         private void garageAddBtn_Click(object sender, EventArgs e)
         {
+            List<String> errorMessages = GarageFieldCheck();
+            if(errorMessages.Count == 0)
+            {
+                garageMsgLabel.Text = "";
 
+                Garage g = new Garage();
+                g.Address = garageAddressField.Text;
+                if (bal.GetSpecifiedGarages(g).Count > 0)
+                {
+                    garageMsgLabel.Text = "There already exist a garage at address " + g.Address +
+                        "\nPlease type another address";
+                }
+                else
+                {
+                    g.Size = Int32.Parse(garageSizeField.Text);
+
+                    bal.InsertGarage(g);
+                    garageMsgLabel.Text = "Garage with address " + g.Address + " was added.";
+                    LoadAllGarages(); 
+                }
+            }
+            else
+            {
+                String errorMessage = "Could not add garage. The following values were invalid: ";
+
+                foreach (String s in errorMessages)
+                {
+                    errorMessage += "\n" + s;
+                }
+
+                MessageBox.Show(errorMessage);
+            }
         }
 
         private void garageRemoveBtn_Click(object sender, EventArgs e)
         {
-
+            garageMsgLabel.Text = "";
+            if (garageAddressField.Text == "")
+            {
+                garageMsgLabel.Text = "Please enter the address of the garage you want to remove";
+            }
+            else
+            {
+                Garage g = new Garage();
+                g.Address = garageAddressField.Text;
+                if (bal.GetSpecifiedGarages(g).Count == 0)
+                {
+                    garageMsgLabel.Text = "No garages with Address " + g.Address + " exists." +
+                        "\nNo garage was removed.";
+                }
+                else
+                {  
+                    bal.DeleteGarage(g);
+                    garageMsgLabel.Text = "Garage with address " + g.Address + " was removed.";
+                    LoadAllGarages();
+                }
+            }
         }
 
         private void garageClearBtn_Click(object sender, EventArgs e)
@@ -1013,7 +1139,6 @@ namespace PKDataBaseView
             if (address == null)
             {
                 g.Address = garageAddressField.Text;
-                g.Size = Int32.Parse(garageSizeField.Text);
             }
             else
             {
@@ -1022,7 +1147,7 @@ namespace PKDataBaseView
             List<Garage> garages = bal.GetSpecifiedGarages(g);
             if (garages.Count == 0)
             {
-                bookingMsgLabel.Text = "No garages that matched the criteria were found.";
+                garageMsgLabel.Text = "No garages that matched the criteria were found.";
             }
 
             DataTable garageTable = new DataTable();
@@ -1037,8 +1162,40 @@ namespace PKDataBaseView
                 row[1] = tmpGarage.Size;
                 garageTable.Rows.Add(row);
             }
+
+            if(garages.Count == 1)
+            {
+                garageAddressField.Text = garages[0].Address;
+                garageSizeField.Text = garages[0].Size.ToString();
+            }
+
             garageDataGridView.DataSource = garageTable;
             garageDataGridView.Update();
+        }
+        
+        private List<String> GarageFieldCheck()
+        {
+            int test;
+            List<String> errorMessages = new List<String>();
+
+            if(garageAddressField.Text == "")
+            {
+                errorMessages.Add("Address: The Address field cannot be empty, please enter a value.");
+            } else if (garageAddressField.Text.Length > 50) {
+                errorMessages.Add("Address: The Address field may contain maximum 50 characters.");
+            }
+
+            if(garageSizeField.Text == ""){
+                errorMessages.Add("Size: The Size field cannot be empty, please enter a value.");
+            } else if(garageSizeField.Text.Length > 50)
+            {
+                errorMessages.Add("Size: The Size field may contain maximum 50 characters.");
+            } else if(!Int32.TryParse(garageSizeField.Text, out test))
+            {
+                errorMessages.Add("Size: The size value must be an integer.");
+            }
+            
+            return errorMessages;
         }
 
         private void ClearGarageFields()
@@ -1046,5 +1203,19 @@ namespace PKDataBaseView
             garageAddressField.Text = "";
             garageSizeField.Text = "";
         }
+
+        //End Garage Methods
+
+        private void customSortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            int a = int.Parse(e.CellValue1.ToString()), b = int.Parse(e.CellValue2.ToString());
+
+            // If the cell value is already an integer, just cast it instead of parsing
+
+            e.SortResult = a.CompareTo(b);
+
+            e.Handled = true;
+        }
+
     }
 }

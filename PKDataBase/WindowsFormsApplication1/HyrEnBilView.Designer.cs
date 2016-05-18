@@ -56,6 +56,7 @@
             this.carRegNbrField = new System.Windows.Forms.TextBox();
             this.carInfoLbl = new System.Windows.Forms.Label();
             this.customersTab = new System.Windows.Forms.TabPage();
+            this.customerNextIDBtn = new System.Windows.Forms.Button();
             this.customerClearBtn = new System.Windows.Forms.Button();
             this.customerPhoneNbrLbl = new System.Windows.Forms.Label();
             this.customerAddressLbl = new System.Windows.Forms.Label();
@@ -75,6 +76,7 @@
             this.customerIDField = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.bookingTab = new System.Windows.Forms.TabPage();
+            this.bookingNextNbrBtn = new System.Windows.Forms.Button();
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.startDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.bookingClearBtn = new System.Windows.Forms.Button();
@@ -94,6 +96,9 @@
             this.bookingNbrField = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.garageTab = new System.Windows.Forms.TabPage();
+            this.garageClearBtn = new System.Windows.Forms.Button();
+            this.garageSizeLbl = new System.Windows.Forms.Label();
+            this.garageAddressLbl = new System.Windows.Forms.Label();
             this.garageMsgLabel = new System.Windows.Forms.Label();
             this.garageDataGridView = new System.Windows.Forms.DataGridView();
             this.garageRemoveBtn = new System.Windows.Forms.Button();
@@ -104,9 +109,6 @@
             this.garageAddressField = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.hyrenbilDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.garageAddressLbl = new System.Windows.Forms.Label();
-            this.garageSizeLbl = new System.Windows.Forms.Label();
-            this.garageClearBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.carsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.carDataGridView)).BeginInit();
@@ -198,7 +200,7 @@
             this.carDeleteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carDeleteBtn.Location = new System.Drawing.Point(248, 315);
+            this.carDeleteBtn.Location = new System.Drawing.Point(248, 331);
             this.carDeleteBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carDeleteBtn.Name = "carDeleteBtn";
             this.carDeleteBtn.Size = new System.Drawing.Size(75, 28);
@@ -209,7 +211,7 @@
             // 
             // carClearBtn
             // 
-            this.carClearBtn.Location = new System.Drawing.Point(248, 282);
+            this.carClearBtn.Location = new System.Drawing.Point(248, 298);
             this.carClearBtn.Name = "carClearBtn";
             this.carClearBtn.Size = new System.Drawing.Size(75, 28);
             this.carClearBtn.TabIndex = 25;
@@ -220,7 +222,7 @@
             // carGarageComboBox
             // 
             this.carGarageComboBox.FormattingEnabled = true;
-            this.carGarageComboBox.Location = new System.Drawing.Point(94, 257);
+            this.carGarageComboBox.Location = new System.Drawing.Point(94, 271);
             this.carGarageComboBox.Name = "carGarageComboBox";
             this.carGarageComboBox.Size = new System.Drawing.Size(229, 21);
             this.carGarageComboBox.TabIndex = 24;
@@ -228,7 +230,7 @@
             // carColorComboBox
             // 
             this.carColorComboBox.FormattingEnabled = true;
-            this.carColorComboBox.Location = new System.Drawing.Point(94, 188);
+            this.carColorComboBox.Location = new System.Drawing.Point(94, 196);
             this.carColorComboBox.Name = "carColorComboBox";
             this.carColorComboBox.Size = new System.Drawing.Size(229, 21);
             this.carColorComboBox.TabIndex = 23;
@@ -236,7 +238,7 @@
             // carBrandComboBox
             // 
             this.carBrandComboBox.FormattingEnabled = true;
-            this.carBrandComboBox.Location = new System.Drawing.Point(94, 165);
+            this.carBrandComboBox.Location = new System.Drawing.Point(94, 169);
             this.carBrandComboBox.Name = "carBrandComboBox";
             this.carBrandComboBox.Size = new System.Drawing.Size(229, 21);
             this.carBrandComboBox.TabIndex = 22;
@@ -245,7 +247,7 @@
             // carModelComboBox
             // 
             this.carModelComboBox.FormattingEnabled = true;
-            this.carModelComboBox.Location = new System.Drawing.Point(94, 140);
+            this.carModelComboBox.Location = new System.Drawing.Point(94, 142);
             this.carModelComboBox.Name = "carModelComboBox";
             this.carModelComboBox.Size = new System.Drawing.Size(229, 21);
             this.carModelComboBox.TabIndex = 21;
@@ -254,7 +256,7 @@
             // carGarageLbl
             // 
             this.carGarageLbl.AutoSize = true;
-            this.carGarageLbl.Location = new System.Drawing.Point(5, 260);
+            this.carGarageLbl.Location = new System.Drawing.Point(5, 274);
             this.carGarageLbl.Name = "carGarageLbl";
             this.carGarageLbl.Size = new System.Drawing.Size(42, 13);
             this.carGarageLbl.TabIndex = 20;
@@ -263,7 +265,7 @@
             // carSeatsLbl
             // 
             this.carSeatsLbl.AutoSize = true;
-            this.carSeatsLbl.Location = new System.Drawing.Point(5, 237);
+            this.carSeatsLbl.Location = new System.Drawing.Point(5, 249);
             this.carSeatsLbl.Name = "carSeatsLbl";
             this.carSeatsLbl.Size = new System.Drawing.Size(34, 13);
             this.carSeatsLbl.TabIndex = 19;
@@ -272,7 +274,7 @@
             // carPriceLbl
             // 
             this.carPriceLbl.AutoSize = true;
-            this.carPriceLbl.Location = new System.Drawing.Point(5, 214);
+            this.carPriceLbl.Location = new System.Drawing.Point(5, 225);
             this.carPriceLbl.Name = "carPriceLbl";
             this.carPriceLbl.Size = new System.Drawing.Size(31, 13);
             this.carPriceLbl.TabIndex = 18;
@@ -281,7 +283,7 @@
             // carColorLbl
             // 
             this.carColorLbl.AutoSize = true;
-            this.carColorLbl.Location = new System.Drawing.Point(5, 191);
+            this.carColorLbl.Location = new System.Drawing.Point(5, 199);
             this.carColorLbl.Name = "carColorLbl";
             this.carColorLbl.Size = new System.Drawing.Size(31, 13);
             this.carColorLbl.TabIndex = 17;
@@ -290,7 +292,7 @@
             // carModelLbl
             // 
             this.carModelLbl.AutoSize = true;
-            this.carModelLbl.Location = new System.Drawing.Point(5, 143);
+            this.carModelLbl.Location = new System.Drawing.Point(5, 145);
             this.carModelLbl.Name = "carModelLbl";
             this.carModelLbl.Size = new System.Drawing.Size(36, 13);
             this.carModelLbl.TabIndex = 16;
@@ -299,7 +301,7 @@
             // carBrandLbl
             // 
             this.carBrandLbl.AutoSize = true;
-            this.carBrandLbl.Location = new System.Drawing.Point(5, 168);
+            this.carBrandLbl.Location = new System.Drawing.Point(5, 172);
             this.carBrandLbl.Name = "carBrandLbl";
             this.carBrandLbl.Size = new System.Drawing.Size(35, 13);
             this.carBrandLbl.TabIndex = 15;
@@ -328,7 +330,7 @@
             this.carAddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carAddBtn.Location = new System.Drawing.Point(169, 315);
+            this.carAddBtn.Location = new System.Drawing.Point(169, 331);
             this.carAddBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carAddBtn.Name = "carAddBtn";
             this.carAddBtn.Size = new System.Drawing.Size(75, 28);
@@ -342,7 +344,7 @@
             this.carUpdateBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carUpdateBtn.Location = new System.Drawing.Point(90, 315);
+            this.carUpdateBtn.Location = new System.Drawing.Point(90, 331);
             this.carUpdateBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carUpdateBtn.Name = "carUpdateBtn";
             this.carUpdateBtn.Size = new System.Drawing.Size(75, 28);
@@ -356,7 +358,7 @@
             this.carSearchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carSearchBtn.Location = new System.Drawing.Point(11, 315);
+            this.carSearchBtn.Location = new System.Drawing.Point(11, 331);
             this.carSearchBtn.Margin = new System.Windows.Forms.Padding(2);
             this.carSearchBtn.Name = "carSearchBtn";
             this.carSearchBtn.Size = new System.Drawing.Size(75, 28);
@@ -370,7 +372,7 @@
             this.carSeatsField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carSeatsField.Location = new System.Drawing.Point(94, 234);
+            this.carSeatsField.Location = new System.Drawing.Point(94, 246);
             this.carSeatsField.Margin = new System.Windows.Forms.Padding(2);
             this.carSeatsField.Name = "carSeatsField";
             this.carSeatsField.Size = new System.Drawing.Size(229, 20);
@@ -381,7 +383,7 @@
             this.carPriceField.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.carPriceField.Location = new System.Drawing.Point(94, 211);
+            this.carPriceField.Location = new System.Drawing.Point(94, 222);
             this.carPriceField.Margin = new System.Windows.Forms.Padding(2);
             this.carPriceField.Name = "carPriceField";
             this.carPriceField.Size = new System.Drawing.Size(229, 20);
@@ -413,6 +415,7 @@
             // 
             // customersTab
             // 
+            this.customersTab.Controls.Add(this.customerNextIDBtn);
             this.customersTab.Controls.Add(this.customerClearBtn);
             this.customersTab.Controls.Add(this.customerPhoneNbrLbl);
             this.customersTab.Controls.Add(this.customerAddressLbl);
@@ -440,6 +443,17 @@
             this.customersTab.Text = "Customers";
             this.customersTab.UseVisualStyleBackColor = true;
             // 
+            // customerNextIDBtn
+            // 
+            this.customerNextIDBtn.Location = new System.Drawing.Point(212, 112);
+            this.customerNextIDBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.customerNextIDBtn.Name = "customerNextIDBtn";
+            this.customerNextIDBtn.Size = new System.Drawing.Size(111, 28);
+            this.customerNextIDBtn.TabIndex = 47;
+            this.customerNextIDBtn.Text = "Next Avalible ID";
+            this.customerNextIDBtn.UseVisualStyleBackColor = true;
+            this.customerNextIDBtn.Click += new System.EventHandler(this.customerNextIDBtn_Click);
+            // 
             // customerClearBtn
             // 
             this.customerClearBtn.Location = new System.Drawing.Point(248, 253);
@@ -454,7 +468,7 @@
             // customerPhoneNbrLbl
             // 
             this.customerPhoneNbrLbl.AutoSize = true;
-            this.customerPhoneNbrLbl.Location = new System.Drawing.Point(5, 211);
+            this.customerPhoneNbrLbl.Location = new System.Drawing.Point(5, 216);
             this.customerPhoneNbrLbl.Name = "customerPhoneNbrLbl";
             this.customerPhoneNbrLbl.Size = new System.Drawing.Size(78, 13);
             this.customerPhoneNbrLbl.TabIndex = 31;
@@ -463,7 +477,7 @@
             // customerAddressLbl
             // 
             this.customerAddressLbl.AutoSize = true;
-            this.customerAddressLbl.Location = new System.Drawing.Point(5, 188);
+            this.customerAddressLbl.Location = new System.Drawing.Point(5, 192);
             this.customerAddressLbl.Name = "customerAddressLbl";
             this.customerAddressLbl.Size = new System.Drawing.Size(45, 13);
             this.customerAddressLbl.TabIndex = 30;
@@ -472,7 +486,7 @@
             // customerLastNameLbl
             // 
             this.customerLastNameLbl.AutoSize = true;
-            this.customerLastNameLbl.Location = new System.Drawing.Point(5, 165);
+            this.customerLastNameLbl.Location = new System.Drawing.Point(5, 168);
             this.customerLastNameLbl.Name = "customerLastNameLbl";
             this.customerLastNameLbl.Size = new System.Drawing.Size(58, 13);
             this.customerLastNameLbl.TabIndex = 29;
@@ -481,7 +495,7 @@
             // customerFirstNameLbl
             // 
             this.customerFirstNameLbl.AutoSize = true;
-            this.customerFirstNameLbl.Location = new System.Drawing.Point(5, 142);
+            this.customerFirstNameLbl.Location = new System.Drawing.Point(5, 144);
             this.customerFirstNameLbl.Name = "customerFirstNameLbl";
             this.customerFirstNameLbl.Size = new System.Drawing.Size(57, 13);
             this.customerFirstNameLbl.TabIndex = 28;
@@ -565,7 +579,7 @@
             // 
             // customerLastNameField
             // 
-            this.customerLastNameField.Location = new System.Drawing.Point(94, 162);
+            this.customerLastNameField.Location = new System.Drawing.Point(94, 165);
             this.customerLastNameField.Margin = new System.Windows.Forms.Padding(2);
             this.customerLastNameField.Name = "customerLastNameField";
             this.customerLastNameField.Size = new System.Drawing.Size(229, 20);
@@ -573,7 +587,7 @@
             // 
             // customerFirstNameField
             // 
-            this.customerFirstNameField.Location = new System.Drawing.Point(94, 139);
+            this.customerFirstNameField.Location = new System.Drawing.Point(94, 141);
             this.customerFirstNameField.Margin = new System.Windows.Forms.Padding(2);
             this.customerFirstNameField.Name = "customerFirstNameField";
             this.customerFirstNameField.Size = new System.Drawing.Size(229, 20);
@@ -581,7 +595,7 @@
             // 
             // customerAddressField
             // 
-            this.customerAddressField.Location = new System.Drawing.Point(94, 185);
+            this.customerAddressField.Location = new System.Drawing.Point(94, 189);
             this.customerAddressField.Margin = new System.Windows.Forms.Padding(2);
             this.customerAddressField.Name = "customerAddressField";
             this.customerAddressField.Size = new System.Drawing.Size(229, 20);
@@ -589,7 +603,7 @@
             // 
             // customerPhoneNbrField
             // 
-            this.customerPhoneNbrField.Location = new System.Drawing.Point(94, 208);
+            this.customerPhoneNbrField.Location = new System.Drawing.Point(94, 213);
             this.customerPhoneNbrField.Margin = new System.Windows.Forms.Padding(2);
             this.customerPhoneNbrField.Name = "customerPhoneNbrField";
             this.customerPhoneNbrField.Size = new System.Drawing.Size(229, 20);
@@ -600,7 +614,7 @@
             this.customerIDField.Location = new System.Drawing.Point(94, 117);
             this.customerIDField.Margin = new System.Windows.Forms.Padding(2);
             this.customerIDField.Name = "customerIDField";
-            this.customerIDField.Size = new System.Drawing.Size(229, 20);
+            this.customerIDField.Size = new System.Drawing.Size(114, 20);
             this.customerIDField.TabIndex = 14;
             // 
             // label2
@@ -615,6 +629,7 @@
             // 
             // bookingTab
             // 
+            this.bookingTab.Controls.Add(this.bookingNextNbrBtn);
             this.bookingTab.Controls.Add(this.endDateTimePicker);
             this.bookingTab.Controls.Add(this.startDateTimePicker);
             this.bookingTab.Controls.Add(this.bookingClearBtn);
@@ -642,16 +657,27 @@
             this.bookingTab.Text = "Booking";
             this.bookingTab.UseVisualStyleBackColor = true;
             // 
+            // bookingNextNbrBtn
+            // 
+            this.bookingNextNbrBtn.Location = new System.Drawing.Point(212, 112);
+            this.bookingNextNbrBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.bookingNextNbrBtn.Name = "bookingNextNbrBtn";
+            this.bookingNextNbrBtn.Size = new System.Drawing.Size(111, 28);
+            this.bookingNextNbrBtn.TabIndex = 46;
+            this.bookingNextNbrBtn.Text = "Next Avalible Nbr.";
+            this.bookingNextNbrBtn.UseVisualStyleBackColor = true;
+            this.bookingNextNbrBtn.Click += new System.EventHandler(this.bookingNextNbrBtn_Click);
+            // 
             // endDateTimePicker
             // 
-            this.endDateTimePicker.Location = new System.Drawing.Point(94, 212);
+            this.endDateTimePicker.Location = new System.Drawing.Point(94, 216);
             this.endDateTimePicker.Name = "endDateTimePicker";
             this.endDateTimePicker.Size = new System.Drawing.Size(229, 20);
             this.endDateTimePicker.TabIndex = 45;
             // 
             // startDateTimePicker
             // 
-            this.startDateTimePicker.Location = new System.Drawing.Point(94, 189);
+            this.startDateTimePicker.Location = new System.Drawing.Point(94, 190);
             this.startDateTimePicker.Name = "startDateTimePicker";
             this.startDateTimePicker.Size = new System.Drawing.Size(229, 20);
             this.startDateTimePicker.TabIndex = 44;
@@ -670,7 +696,7 @@
             // bookingEndDateLbl
             // 
             this.bookingEndDateLbl.AutoSize = true;
-            this.bookingEndDateLbl.Location = new System.Drawing.Point(4, 218);
+            this.bookingEndDateLbl.Location = new System.Drawing.Point(4, 222);
             this.bookingEndDateLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bookingEndDateLbl.Name = "bookingEndDateLbl";
             this.bookingEndDateLbl.Size = new System.Drawing.Size(52, 13);
@@ -680,7 +706,7 @@
             // bookingStartDateLbl
             // 
             this.bookingStartDateLbl.AutoSize = true;
-            this.bookingStartDateLbl.Location = new System.Drawing.Point(4, 195);
+            this.bookingStartDateLbl.Location = new System.Drawing.Point(4, 196);
             this.bookingStartDateLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bookingStartDateLbl.Name = "bookingStartDateLbl";
             this.bookingStartDateLbl.Size = new System.Drawing.Size(55, 13);
@@ -690,7 +716,7 @@
             // bookingRegNbrLbl
             // 
             this.bookingRegNbrLbl.AutoSize = true;
-            this.bookingRegNbrLbl.Location = new System.Drawing.Point(4, 167);
+            this.bookingRegNbrLbl.Location = new System.Drawing.Point(4, 168);
             this.bookingRegNbrLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bookingRegNbrLbl.Name = "bookingRegNbrLbl";
             this.bookingRegNbrLbl.Size = new System.Drawing.Size(69, 13);
@@ -747,7 +773,7 @@
             this.bookingRemoveBtn.Name = "bookingRemoveBtn";
             this.bookingRemoveBtn.Size = new System.Drawing.Size(75, 28);
             this.bookingRemoveBtn.TabIndex = 35;
-            this.bookingRemoveBtn.Text = "Remove";
+            this.bookingRemoveBtn.Text = "Delete";
             this.bookingRemoveBtn.UseVisualStyleBackColor = true;
             this.bookingRemoveBtn.Click += new System.EventHandler(this.bookingRemoveBtn_Click);
             // 
@@ -786,7 +812,7 @@
             // 
             // bookingRegNbrField
             // 
-            this.bookingRegNbrField.Location = new System.Drawing.Point(94, 164);
+            this.bookingRegNbrField.Location = new System.Drawing.Point(94, 165);
             this.bookingRegNbrField.Margin = new System.Windows.Forms.Padding(2);
             this.bookingRegNbrField.Name = "bookingRegNbrField";
             this.bookingRegNbrField.Size = new System.Drawing.Size(229, 20);
@@ -805,7 +831,7 @@
             this.bookingNbrField.Location = new System.Drawing.Point(94, 117);
             this.bookingNbrField.Margin = new System.Windows.Forms.Padding(2);
             this.bookingNbrField.Name = "bookingNbrField";
-            this.bookingNbrField.Size = new System.Drawing.Size(229, 20);
+            this.bookingNbrField.Size = new System.Drawing.Size(114, 20);
             this.bookingNbrField.TabIndex = 27;
             // 
             // label3
@@ -841,10 +867,41 @@
             this.garageTab.Text = "Garage";
             this.garageTab.UseVisualStyleBackColor = true;
             // 
+            // garageClearBtn
+            // 
+            this.garageClearBtn.Location = new System.Drawing.Point(248, 253);
+            this.garageClearBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.garageClearBtn.Name = "garageClearBtn";
+            this.garageClearBtn.Size = new System.Drawing.Size(75, 28);
+            this.garageClearBtn.TabIndex = 51;
+            this.garageClearBtn.Text = "Clear Fields";
+            this.garageClearBtn.UseVisualStyleBackColor = true;
+            this.garageClearBtn.Click += new System.EventHandler(this.garageClearBtn_Click);
+            // 
+            // garageSizeLbl
+            // 
+            this.garageSizeLbl.AutoSize = true;
+            this.garageSizeLbl.Location = new System.Drawing.Point(4, 144);
+            this.garageSizeLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.garageSizeLbl.Name = "garageSizeLbl";
+            this.garageSizeLbl.Size = new System.Drawing.Size(27, 13);
+            this.garageSizeLbl.TabIndex = 50;
+            this.garageSizeLbl.Text = "Size";
+            // 
+            // garageAddressLbl
+            // 
+            this.garageAddressLbl.AutoSize = true;
+            this.garageAddressLbl.Location = new System.Drawing.Point(4, 120);
+            this.garageAddressLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.garageAddressLbl.Name = "garageAddressLbl";
+            this.garageAddressLbl.Size = new System.Drawing.Size(45, 13);
+            this.garageAddressLbl.TabIndex = 49;
+            this.garageAddressLbl.Text = "Address";
+            // 
             // garageMsgLabel
             // 
             this.garageMsgLabel.AutoSize = true;
-            this.garageMsgLabel.Location = new System.Drawing.Point(76, 346);
+            this.garageMsgLabel.Location = new System.Drawing.Point(8, 315);
             this.garageMsgLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.garageMsgLabel.Name = "garageMsgLabel";
             this.garageMsgLabel.Size = new System.Drawing.Size(50, 13);
@@ -871,7 +928,7 @@
             this.garageRemoveBtn.Name = "garageRemoveBtn";
             this.garageRemoveBtn.Size = new System.Drawing.Size(75, 28);
             this.garageRemoveBtn.TabIndex = 46;
-            this.garageRemoveBtn.Text = "Remove";
+            this.garageRemoveBtn.Text = "Delete";
             this.garageRemoveBtn.UseVisualStyleBackColor = true;
             this.garageRemoveBtn.Click += new System.EventHandler(this.garageRemoveBtn_Click);
             // 
@@ -939,37 +996,6 @@
             this.hyrenbilDataSetBindingSource.DataSource = this.hyrenbilDataSet;
             this.hyrenbilDataSetBindingSource.Position = 0;
             // 
-            // garageAddressLbl
-            // 
-            this.garageAddressLbl.AutoSize = true;
-            this.garageAddressLbl.Location = new System.Drawing.Point(4, 120);
-            this.garageAddressLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.garageAddressLbl.Name = "garageAddressLbl";
-            this.garageAddressLbl.Size = new System.Drawing.Size(45, 13);
-            this.garageAddressLbl.TabIndex = 49;
-            this.garageAddressLbl.Text = "Address";
-            // 
-            // garageSizeLbl
-            // 
-            this.garageSizeLbl.AutoSize = true;
-            this.garageSizeLbl.Location = new System.Drawing.Point(4, 144);
-            this.garageSizeLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.garageSizeLbl.Name = "garageSizeLbl";
-            this.garageSizeLbl.Size = new System.Drawing.Size(27, 13);
-            this.garageSizeLbl.TabIndex = 50;
-            this.garageSizeLbl.Text = "Size";
-            // 
-            // garageClearBtn
-            // 
-            this.garageClearBtn.Location = new System.Drawing.Point(248, 253);
-            this.garageClearBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.garageClearBtn.Name = "garageClearBtn";
-            this.garageClearBtn.Size = new System.Drawing.Size(75, 28);
-            this.garageClearBtn.TabIndex = 51;
-            this.garageClearBtn.Text = "Clear Fields";
-            this.garageClearBtn.UseVisualStyleBackColor = true;
-            this.garageClearBtn.Click += new System.EventHandler(this.garageClearBtn_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -978,7 +1004,7 @@
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Hyr en bil";
             this.tabControl1.ResumeLayout(false);
             this.carsTab.ResumeLayout(false);
             this.carsTab.PerformLayout();
@@ -1079,6 +1105,8 @@
         private System.Windows.Forms.Label garageSizeLbl;
         private System.Windows.Forms.Label garageAddressLbl;
         private System.Windows.Forms.Button garageClearBtn;
+        private System.Windows.Forms.Button bookingNextNbrBtn;
+        private System.Windows.Forms.Button customerNextIDBtn;
     }
 }
 
